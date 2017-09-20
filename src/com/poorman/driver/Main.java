@@ -1,8 +1,12 @@
 package com.poorman.driver;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -53,6 +57,13 @@ public class Main {
 		JButton btnDirectorySearch = new JButton("Search");
 		btnDirectorySearch.setBounds(125, 6, 117, 29);
 		frame.getContentPane().add(btnDirectorySearch);
+		btnDirectorySearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setDirectoryToCount();
+			}
+
+		});
 
 		JLabel lblSaveResultsTo = new JLabel("Save results to:");
 		lblSaveResultsTo.setBounds(6, 70, 101, 16);
@@ -61,11 +72,11 @@ public class Main {
 		JButton btnSaveTo = new JButton("Search");
 		btnSaveTo.setBounds(125, 65, 117, 29);
 		frame.getContentPane().add(btnSaveTo);
-		// btnSaveTo.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		//
-		// }
-		// });
+		btnSaveTo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 
 		JLabel lblTimeToProcess = new JLabel("Time to process:");
 		lblTimeToProcess.setBounds(6, 172, 117, 16);
@@ -108,5 +119,16 @@ public class Main {
 		JLabel lblTotalResults = new JLabel("");
 		lblTotalResults.setBounds(79, 228, 126, 16);
 		frame.getContentPane().add(lblTotalResults);
+
+	}
+
+	private void setDirectoryToCount() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showDialog(fileChooser, "Select");
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		}
 	}
 }
